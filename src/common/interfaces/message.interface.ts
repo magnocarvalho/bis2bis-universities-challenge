@@ -1,3 +1,5 @@
 export interface IMessage {
-  message: string;
+  challenge: string;
+  version: string;
+  author: string;
 }

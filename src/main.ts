@@ -7,11 +7,10 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = new DocumentBuilder()
-    .setTitle('Fullstack Challenge 🏅 2022 - Dictionary API')
-    .setDescription('Backend API to Challenge full stack develop')
+    .setTitle('[Bis2Bis E-commerce] - Processo Seletivo - Node.Js Developer')
+    .setDescription('Backend API nestjs http://universities.hipolabs.com/')
     .setContact('Magno Carvalho dos Santos', 'https://www.linkedin.com/in/magnocarv/', 'magnocarv@hotmail.com')
     .setVersion('1.0')
-    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('doc', app, document);

@@ -22,7 +22,7 @@ export class PageOptionsDto {
   @ApiPropertyOptional({
     minimum: 1,
     maximum: 50,
-    default: 10,
+    default: 20,
   })
   @Type(() => Number)
   @IsInt()
@@ -34,7 +34,17 @@ export class PageOptionsDto {
   @IsOptional()
   @MaxLength(25)
   @Type(() => String)
-  readonly search?: string = null;
+  readonly name?: string = null;
+
+  @IsOptional()
+  @MaxLength(25)
+  @Type(() => String)
+  readonly country?: string = null;
+
+  @IsOptional()
+  @MaxLength(25)
+  @Type(() => String)
+  'state-province'?: string = null;
 
   get skip(): number {
     return (this.page - 1) * this.limit;
