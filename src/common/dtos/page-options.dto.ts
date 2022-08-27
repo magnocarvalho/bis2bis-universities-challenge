@@ -34,17 +34,7 @@ export class PageOptionsDto {
   @IsOptional()
   @MaxLength(25)
   @Type(() => String)
-  readonly name?: string = null;
-
-  @IsOptional()
-  @MaxLength(25)
-  @Type(() => String)
   readonly country?: string = null;
-
-  @IsOptional()
-  @MaxLength(25)
-  @Type(() => String)
-  'state-province'?: string = null;
 
   get skip(): number {
     return (this.page - 1) * this.limit;

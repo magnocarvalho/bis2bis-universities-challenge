@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ValidationPipe, UsePipes } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ValidationPipe, UsePipes, Put } from '@nestjs/common';
 import { UniversitiesService } from './universities.service';
 import { CreateUniversityDto } from './dto/create-university.dto';
 import { UpdateUniversityDto } from './dto/update-university.dto';
@@ -13,6 +13,13 @@ import { ApiPaginatedResponse } from 'src/common/decorators';
 export class UniversitiesController {
   constructor(private readonly universitiesService: UniversitiesService) {}
 
+  /**
+   * @description PostCreateUniversityDto by name and country
+   *
+   * @param {CreateUniversityDto} createUniversityDto
+   * @return {*}
+   * @memberof UniversitiesController
+   */
   @Post()
   create(@Body() createUniversityDto: CreateUniversityDto) {
     return this.universitiesService.create(createUniversityDto);
@@ -32,11 +39,11 @@ export class UniversitiesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.universitiesService.findOne(+id);
+  findOne(@Param('id') id: string): Promise<UniversityDto> {
+    return this.universitiesService.findOne(id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateUniversityDto: UpdateUniversityDto) {
     return this.universitiesService.update(+id, updateUniversityDto);
   }

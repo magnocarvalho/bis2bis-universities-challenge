@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PageDto, PageOptionsDto } from 'src/common/dtos';
-import { Like, Repository } from 'typeorm';
+import { Like, Repository, Not, IsNull } from 'typeorm';
 import { CreateUniversityDto } from './dto/create-university.dto';
 import { UniversityDto } from './dto/university.dto';
 import { UpdateUniversityDto } from './dto/update-university.dto';
@@ -14,32 +14,27 @@ export class UniversitiesService {
     private universityRepository: Repository<UniversityEntity>
   ) {}
   create(createUniversityDto: CreateUniversityDto) {
-    return 'This action adds a new university';
+    return this.universityRepository.save(createUniversityDto);
   }
 
   async findAll(pageOptionsDto: PageOptionsDto): Promise<PageDto<UniversityDto>> {
-    const whereOption = { name: undefined, country: undefined, 'state-province': undefined };
-    for (const key in whereOption) {
-      if (Object.prototype.hasOwnProperty.call(whereOption, key)) {
-        const element = whereOption[key];
-        if (element) {
-          whereOption[key] = Like(`%${element}%`);
-        }
-      }
+    try {
+      const [listagem, qtd] = await this.universityRepository.findAndCount({
+        order: {
+          name: pageOptionsDto.order || 'DESC',
+        },
+        where: { country: pageOptionsDto.country },
+        skip: pageOptionsDto.page,
+        take: pageOptionsDto.limit,
+      });
+      return new PageDto(listagem as UniversityDto[], pageOptionsDto, qtd);
+    } catch (error) {
+      throw new NotFoundException('Universities not Exist');
     }
-    const [listagem, qtd] = await this.universityRepository.findAndCount({
-      order: {
-        name: pageOptionsDto.order || 'DESC',
-      },
-      where: whereOption,
-      skip: pageOptionsDto.page,
-      take: pageOptionsDto.limit,
-    });
-    return new PageDto(listagem as UniversityDto[], pageOptionsDto, qtd);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} university`;
+  async findOne(id: string): Promise<UniversityDto> {
+    return await this.universityRepository.findOne({ where: { _id: id } });
   }
 
   update(id: number, updateUniversityDto: UpdateUniversityDto) {

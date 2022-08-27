@@ -3,7 +3,7 @@ import { University } from '../entities/university.entity';
 
 @Entity({ name: 'universities' })
 @Unique(['country', 'name', 'state-province'])
-export class UniversityEntity implements University {
+export class UniversityEntity {
   @ObjectIdColumn()
   _id: string;
   @Column()
