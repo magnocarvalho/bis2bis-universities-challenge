@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { PageDto, PageOptionsDto } from 'src/common/dtos';
 import { Like, Repository, Not, IsNull } from 'typeorm';
 import { CreateUniversityDto } from './dto/create-university.dto';
+import { FilterUniversityDto } from './dto/filter-university.dto';
 import { UniversityDto } from './dto/university.dto';
 import { UpdateUniversityDto } from './dto/update-university.dto';
 import { UniversitiesInterface } from './interfaces/university.interface';
@@ -27,7 +28,7 @@ export class UniversitiesService {
     return await universitiesNew.save();
   }
 
-  async findAll(pageOptionsDto: PageOptionsDto): Promise<PageDto<UniversityDto>> {
+  async findAll(pageOptionsDto: FilterUniversityDto): Promise<PageDto<UniversityDto>> {
     try {
       const country = pageOptionsDto.country ? { country: new RegExp(['^', pageOptionsDto.country, '$'].join(''), 'i') } : {};
       const listagem: UniversityDto[] = await this.universityModel

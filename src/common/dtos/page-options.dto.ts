@@ -28,12 +28,6 @@ export class PageOptionsDto {
   @Max(50)
   readonly limit?: number = 10;
 
-  @IsOptional()
-  @MaxLength(25)
-  @Type(() => String)
-  @IsOptional()
-  readonly country?: string = null;
-
   get skip(): number {
     return (this.page - 1) * this.limit;
   }

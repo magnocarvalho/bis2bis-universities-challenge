@@ -7,6 +7,7 @@ import { PageDto, PageOptionsDto } from 'src/common/dtos';
 import { University } from './entities/university.entity';
 import { UniversityDto } from './dto/university.dto';
 import { ApiPaginatedResponse } from 'src/common/decorators';
+import { FilterUniversityDto } from './dto/filter-university.dto';
 
 @Controller('universities')
 @ApiTags('Universities')
@@ -28,14 +29,14 @@ export class UniversitiesController {
   /**
    * GetALL - Get all universities with filters
    *
-   * @param {PageOptionsDto} pageOptionsDto
+   * @param {FilterUniversityDto} pageOptionsDto
    * @return {*}  {Promise<PageDto<UniversityDto>>}
    * @memberof UniversitiesController
    */
   @Get()
   @ApiPaginatedResponse(UniversityDto)
   @UsePipes(ValidationPipe)
-  async findAll(@Query() pageOptionsDto: PageOptionsDto): Promise<PageDto<UniversityDto>> {
+  async findAll(@Query() pageOptionsDto: FilterUniversityDto): Promise<PageDto<UniversityDto>> {
     return await this.universitiesService.findAll(pageOptionsDto);
   }
 
