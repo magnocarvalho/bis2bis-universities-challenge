@@ -30,7 +30,12 @@ export class UniversitiesService {
   async findAll(pageOptionsDto: PageOptionsDto): Promise<PageDto<UniversityDto>> {
     try {
       const country = pageOptionsDto.country ? { country: new RegExp(['^', pageOptionsDto.country, '$'].join(''), 'i') } : {};
-      const listagem: UniversityDto[] = await this.universityModel.find(country).limit(pageOptionsDto.limit).skip(pageOptionsDto.page).exec();
+      const listagem: UniversityDto[] = await this.universityModel
+        .find(country)
+        .limit(pageOptionsDto.limit)
+        .skip(pageOptionsDto.page)
+        .sort({ name: pageOptionsDto.order == 'DESC' ? -1 : 1 })
+        .exec();
       const qtd = await this.universityModel.count(country);
       return new PageDto(listagem, pageOptionsDto, qtd);
     } catch (error) {
