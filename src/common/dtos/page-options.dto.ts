@@ -6,7 +6,6 @@ import { Order } from '../constants';
 export class PageOptionsDto {
   @ApiPropertyOptional({ enum: Order, default: Order.ASC })
   @IsEnum(Order)
-  @IsOptional()
   readonly order?: Order = Order.ASC;
 
   @ApiPropertyOptional({
@@ -16,7 +15,6 @@ export class PageOptionsDto {
   @Type(() => Number)
   @IsInt()
   @Min(1)
-  @IsOptional()
   readonly page?: number = 1;
 
   @ApiPropertyOptional({
@@ -28,12 +26,12 @@ export class PageOptionsDto {
   @IsInt()
   @Min(1)
   @Max(50)
-  @IsOptional()
   readonly limit?: number = 10;
 
   @IsOptional()
   @MaxLength(25)
   @Type(() => String)
+  @IsOptional()
   readonly country?: string = null;
 
   get skip(): number {

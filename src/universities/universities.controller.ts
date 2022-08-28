@@ -21,6 +21,7 @@ export class UniversitiesController {
    * @memberof UniversitiesController
    */
   @Post()
+  @UsePipes(ValidationPipe)
   create(@Body() createUniversityDto: CreateUniversityDto) {
     return this.universitiesService.create(createUniversityDto);
   }
@@ -39,17 +40,22 @@ export class UniversitiesController {
   }
 
   @Get(':id')
+  @ApiPaginatedResponse(UniversityDto)
+  @UsePipes(ValidationPipe)
   findOne(@Param('id') id: string): Promise<UniversityDto> {
     return this.universitiesService.findOne(id);
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateUniversityDto: UpdateUniversityDto) {
-    return this.universitiesService.update(+id, updateUniversityDto);
+  @UsePipes(ValidationPipe)
+  @ApiPaginatedResponse(UniversityDto)
+  update(@Param('id') id: string, @Body() updateUniversityDto: UpdateUniversityDto): Promise<UniversityDto> {
+    return this.universitiesService.update(id, updateUniversityDto);
   }
 
   @Delete(':id')
+  @UsePipes(ValidationPipe)
   remove(@Param('id') id: string) {
-    return this.universitiesService.remove(+id);
+    return this.universitiesService.remove(id);
   }
 }
