@@ -1,7 +1,6 @@
 import { applyDecorators, Type } from '@nestjs/common';
 import { ApiExtraModels, ApiOkResponse, getSchemaPath } from '@nestjs/swagger';
-import { CreateUniversityDto } from 'src/universities/dto/create-university.dto';
-import { UniversityDto } from 'src/universities/dto/university.dto';
+import { UniversityDto } from '../../universities/dto/university.dto';
 
 import { PageDto } from '../dtos';
 

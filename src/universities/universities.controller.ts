@@ -3,10 +3,9 @@ import { UniversitiesService } from './universities.service';
 import { CreateUniversityDto } from './dto/create-university.dto';
 import { UpdateUniversityDto } from './dto/update-university.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { PageDto, PageOptionsDto } from 'src/common/dtos';
-import { University } from './entities/university.entity';
+import { PageDto, PageOptionsDto } from '../common/dtos';
 import { UniversityDto } from './dto/university.dto';
-import { ApiPaginatedResponse } from 'src/common/decorators';
+import { ApiPaginatedResponse } from '../common/decorators';
 import { FilterUniversityDto } from './dto/filter-university.dto';
 
 @Controller('universities')

@@ -2,7 +2,7 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { InjectModel } from '@nestjs/mongoose';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Model } from 'mongoose';
-import { PageDto, PageOptionsDto } from 'src/common/dtos';
+import { PageDto } from '../common/dtos';
 import { Like, Repository, Not, IsNull } from 'typeorm';
 import { CreateUniversityDto } from './dto/create-university.dto';
 import { FilterUniversityDto } from './dto/filter-university.dto';
